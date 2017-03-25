@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">RnD Magic Box</string>
+
+
+    <string-array name="array_device_type">
+        <item>Select Device Type</item>
+        <item>Light</item>
+        <item>Fan</item>
+        <item>AC</item>
+        <item>TV</item>
+        <item>Motor</item>
+    </string-array>
+
+
+    <string-array name="array_room_number">
+        <item>Select Room</item>
+        <item>Room One</item>
+        <item>Room Two</item>
+        <item>Room Three</item>
+        <item>Room Five</item>
+        <item>Room Six</item>
+    </string-array>
+
+</resources>
