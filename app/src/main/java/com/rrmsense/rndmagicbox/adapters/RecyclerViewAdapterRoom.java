@@ -1,11 +1,17 @@
-package com.rrmsense.rndmagicbox;
+package com.rrmsense.rndmagicbox.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.rrmsense.rndmagicbox.others.Constants;
+import com.rrmsense.rndmagicbox.others.Device;
+import com.rrmsense.rndmagicbox.activities.MainActivity;
+import com.rrmsense.rndmagicbox.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,13 +23,14 @@ import butterknife.ButterKnife;
  * Created by Talha on 3/25/2017.
  */
 
-class RecyclerViewAdapterRoom extends RecyclerView.Adapter<RecyclerViewAdapterRoom.ViewHolder> {
-    HashMap<String, ArrayList<Device> > roomHashMap;
+public class RecyclerViewAdapterRoom extends RecyclerView.Adapter<RecyclerViewAdapterRoom.ViewHolder> {
+    HashMap<String, ArrayList<Device>> roomHashMap;
     ArrayList<String> roomArrayList;
     Context context;
 
 
-    public RecyclerViewAdapterRoom(Context context, HashMap<String, ArrayList<Device> > roomHashMap, ArrayList<String> roomArrayList) {
+
+    public RecyclerViewAdapterRoom(Context context, HashMap<String, ArrayList<Device>> roomHashMap, ArrayList<String> roomArrayList) {
         this.context = context;
         this.roomHashMap = roomHashMap;
         this.roomArrayList = roomArrayList;
@@ -45,7 +52,6 @@ class RecyclerViewAdapterRoom extends RecyclerView.Adapter<RecyclerViewAdapterRo
         holder.recyclerViewDevice.setAdapter(adapter);*/
 
 
-
     }
 
     @Override
@@ -56,12 +62,19 @@ class RecyclerViewAdapterRoom extends RecyclerView.Adapter<RecyclerViewAdapterRo
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.room_name)
         TextView roomName;
-        @BindView(R.id.recycler_view_device)
-        RecyclerView recyclerViewDevice;
+        @BindView(R.id.card_view_room)
+        CardView cardViewRoom;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            cardViewRoom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity)context).setRoomName(roomArrayList.get(getAdapterPosition()));
+                    ((MainActivity)context).openFragment(Constants.FRAGMENT_DEVICE_CONTROLLER);
+                }
+            });
         }
     }
 }

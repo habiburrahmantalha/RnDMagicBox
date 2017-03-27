@@ -1,4 +1,4 @@
-package com.rrmsense.rndmagicbox;
+package com.rrmsense.rndmagicbox.fragments;
 
 
 import android.os.Bundle;
@@ -10,6 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.rrmsense.rndmagicbox.R;
+import com.rrmsense.rndmagicbox.activities.MainActivity;
+import com.rrmsense.rndmagicbox.adapters.RecyclerViewAdapterRoom;
+import com.rrmsense.rndmagicbox.others.Device;
+import com.rrmsense.rndmagicbox.others.Storage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +31,7 @@ public class RoomFragment extends Fragment {
 
     @BindView(R.id.recycler_view_room)
     RecyclerView recyclerViewRoom;
-    HashMap<String, ArrayList<Device> > roomHashMap;
+    HashMap<String, ArrayList<Device>> roomHashMap;
     ArrayList<String> deviceNameArrayList;
     ArrayList<String> roomArrayList;
     private RecyclerView.Adapter adapter;
@@ -54,26 +59,22 @@ public class RoomFragment extends Fragment {
     }
 
     private void createDeviceList() {
-        deviceNameArrayList = ((MainActivity)getActivity()).deviceNameArrayList;
+        deviceNameArrayList = ((MainActivity) getActivity()).deviceNameArrayList;
         roomArrayList = new ArrayList<>();
         roomHashMap = new HashMap<>();
-        for(String s: deviceNameArrayList){
+        for (String s : deviceNameArrayList) {
             Gson gson = new Gson();
-            String json = Storage.getDevice(getActivity(),s);
-            Device device;
-            if(json.equals("")){
+            String json = Storage.getDevice(getActivity(), s);
+            Device device = gson.fromJson(json, Device.class);
+            if (device.getRoomType() != null && roomHashMap.containsKey(device.getRoomType())) {
+                roomHashMap.get(device.getRoomType()).add(device);
 
-            }else{
-                device = gson.fromJson(json, Device.class);
-                if(device.getRoom()!=null && roomHashMap.containsKey(device.getRoom())){
-                    roomHashMap.get(device.getRoom()).add(device);
-
-                }else{
-                    roomArrayList.add(device.getRoom());
-                    roomHashMap.put(device.getRoom(),new ArrayList<Device>());
-                    roomHashMap.get(device.getRoom()).add(device);
-                }
+            } else {
+                roomArrayList.add(device.getRoomType());
+                roomHashMap.put(device.getRoomType(), new ArrayList<Device>());
+                roomHashMap.get(device.getRoomType()).add(device);
             }
+
             //roomArrayList.add(new Room("",device))
 
         }

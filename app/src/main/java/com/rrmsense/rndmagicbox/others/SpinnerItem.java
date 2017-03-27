@@ -1,4 +1,4 @@
-package com.rrmsense.rndmagicbox;
+package com.rrmsense.rndmagicbox.others;
 
 /**
  * Created by Talha on 3/27/2017.

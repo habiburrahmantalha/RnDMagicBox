@@ -1,4 +1,4 @@
-package com.rrmsense.rndmagicbox;
+package com.rrmsense.rndmagicbox.others;
 
 import java.util.ArrayList;
 

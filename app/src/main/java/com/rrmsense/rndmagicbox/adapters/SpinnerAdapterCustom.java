@@ -1,4 +1,4 @@
-package com.rrmsense.rndmagicbox;
+package com.rrmsense.rndmagicbox.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.rrmsense.rndmagicbox.R;
+import com.rrmsense.rndmagicbox.others.SpinnerItem;
 
 import java.util.ArrayList;
 

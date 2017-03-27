@@ -1,4 +1,4 @@
-package com.rrmsense.rndmagicbox;
+package com.rrmsense.rndmagicbox.others;
 
 /**
  * Created by Talha on 3/25/2017.
@@ -8,20 +8,20 @@ public class Device {
     String address;
     String deviceName;
     String roomName;
-    String type;
-    String room;
+    String deviceType;
+    String roomType;
     Boolean status;
     Boolean using;
 
     public Device() {
     }
 
-    public Device(String address, String deviceName, String roomName, String type, String room, Boolean status, Boolean using) {
+    public Device(String address, String deviceName, String roomName, String deviceType, String roomType, Boolean status, Boolean using) {
         this.address = address;
         this.deviceName = deviceName;
         this.roomName = roomName;
-        this.type = type;
-        this.room = room;
+        this.deviceType = deviceType;
+        this.roomType = roomType;
         this.status = status;
         this.using = using;
     }
@@ -50,20 +50,20 @@ public class Device {
         this.roomName = roomName;
     }
 
-    public String getType() {
-        return type;
+    public String getDeviceType() {
+        return deviceType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 
-    public String getRoom() {
-        return room;
+    public String getRoomType() {
+        return roomType;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public Boolean getStatus() {

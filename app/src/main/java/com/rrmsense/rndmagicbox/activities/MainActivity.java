@@ -1,4 +1,4 @@
-package com.rrmsense.rndmagicbox;
+package com.rrmsense.rndmagicbox.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,13 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.google.gson.Gson;
+import com.rrmsense.rndmagicbox.others.Constants;
+import com.rrmsense.rndmagicbox.others.Device;
+import com.rrmsense.rndmagicbox.R;
+import com.rrmsense.rndmagicbox.others.Storage;
+import com.rrmsense.rndmagicbox.fragments.DeviceControllerFragment;
+import com.rrmsense.rndmagicbox.fragments.DeviceFragment;
+import com.rrmsense.rndmagicbox.fragments.RoomFragment;
 
 import java.util.ArrayList;
 
@@ -20,12 +27,13 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.fragment_holder)
     FrameLayout fragmentHolder;
-    ArrayList<String> deviceNameArrayList;
+    public ArrayList<String> deviceNameArrayList;
     int CURRENT_FRAGMENT = Constants.FRAGMENT_DEVICE;
     @BindView(R.id.device)
     Button device;
     @BindView(R.id.room)
     Button room;
+    public String roomName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +72,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (CURRENT_FRAGMENT == Constants.FRAGMENT_ROOM)
-            openFragment(Constants.FRAGMENT_DEVICE);
-        else
-            super.onBackPressed();
+
+        switch (CURRENT_FRAGMENT){
+            case Constants.FRAGMENT_ROOM:
+                openFragment(Constants.FRAGMENT_DEVICE);
+                break;
+            case Constants.FRAGMENT_DEVICE:
+                super.onBackPressed();
+                break;
+
+            case Constants.FRAGMENT_DEVICE_CONTROLLER:
+                openFragment(Constants.FRAGMENT_ROOM);
+                break;
+            default:
+                super.onBackPressed();
+                break;
+        }
     }
 
     private void getDeviceList() {
@@ -84,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    }
+    public void setRoomName(String s){
+        roomName = s;
     }
 
     @OnClick({R.id.device, R.id.room})

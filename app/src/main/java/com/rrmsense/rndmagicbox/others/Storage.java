@@ -1,4 +1,4 @@
-package com.rrmsense.rndmagicbox;
+package com.rrmsense.rndmagicbox.others;
 
 import android.content.Context;
 import android.content.SharedPreferences;

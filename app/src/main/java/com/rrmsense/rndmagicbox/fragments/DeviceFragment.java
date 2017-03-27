@@ -1,4 +1,4 @@
-package com.rrmsense.rndmagicbox;
+package com.rrmsense.rndmagicbox.fragments;
 
 
 import android.os.Bundle;
@@ -10,6 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.rrmsense.rndmagicbox.R;
+import com.rrmsense.rndmagicbox.activities.MainActivity;
+import com.rrmsense.rndmagicbox.adapters.RecyclerViewAdapterDevice;
+import com.rrmsense.rndmagicbox.others.Device;
+import com.rrmsense.rndmagicbox.others.Storage;
 
 import java.util.ArrayList;
 
@@ -43,7 +48,7 @@ public class DeviceFragment extends Fragment {
         ButterKnife.bind(this, view);
         createDeviceList();
 
-
+        deviceNameArrayList = ((MainActivity)getActivity()).deviceNameArrayList;
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewDevice.setLayoutManager(layoutManager);
         adapter = new RecyclerViewAdapterDevice(getActivity(), deviceArrayList);
