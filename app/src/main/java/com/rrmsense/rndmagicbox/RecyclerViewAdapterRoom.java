@@ -1,7 +1,6 @@
 package com.rrmsense.rndmagicbox;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,10 +39,10 @@ class RecyclerViewAdapterRoom extends RecyclerView.Adapter<RecyclerViewAdapterRo
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.roomName.setText(roomArrayList.get(position));
 
-        RecyclerView.Adapter adapter = new RecyclerViewAdapterDeviceController(context, roomHashMap.get(roomArrayList.get(position)));
+       /* RecyclerView.Adapter adapter = new RecyclerViewAdapterDeviceController(context, roomHashMap.get(roomArrayList.get(position)));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         holder.recyclerViewDevice.setLayoutManager(layoutManager);
-        holder.recyclerViewDevice.setAdapter(adapter);
+        holder.recyclerViewDevice.setAdapter(adapter);*/
 
 
 

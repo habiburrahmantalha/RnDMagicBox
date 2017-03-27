@@ -7,4 +7,5 @@ package com.rrmsense.rndmagicbox;
 public class Constants {
     public static final int FRAGMENT_DEVICE = 2;
     public static final int FRAGMENT_ROOM = 3;
+    public static final int FRAGMENT_DEVICE_CONTROLLER = 4;
 }

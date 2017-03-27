@@ -3,12 +3,16 @@ package com.rrmsense.rndmagicbox;
 import android.content.Context;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -17,6 +21,7 @@ import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
 
 /**
  * Created by Talha on 3/25/2017.
@@ -25,6 +30,10 @@ import butterknife.ButterKnife;
 class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerViewAdapterDevice.ViewHolder> {
     ArrayList<Device> deviceArrayList;
     Context context;
+    String[] roomName = new String[]{"ONE", "TWO", "THREE", "FOUR"};
+    Integer[] roomIcon = {R.drawable.ic_check_black_24dp, R.drawable.ic_check_black_24dp, R.drawable.ic_check_black_24dp, R.drawable.ic_check_black_24dp};
+    String[] deviceTypeName = new String[]{"Light", "Fan", "AC","TV", "Motor"};
+    Integer[] deviceTypeIcon = {R.drawable.ic_check_black_24dp, R.drawable.ic_check_black_24dp, R.drawable.ic_check_black_24dp, R.drawable.ic_check_black_24dp,R.drawable.ic_check_black_24dp};
 
 
     public RecyclerViewAdapterDevice(Context context, ArrayList<Device> deviceArrayList) {
@@ -41,11 +50,33 @@ class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerViewAdapter
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.deviceAddress.setText(deviceArrayList.get(position).getAddress());
-        String[] device = context.getResources().getStringArray (R.array.array_device_type);
-        String[] room = context.getResources().getStringArray (R.array.array_room_number);
-        holder.deviceType.setSelection(new ArrayList<>(Arrays.asList(device)).indexOf(deviceArrayList.get(position).getType()));
-        holder.deviceRoom.setSelection(new ArrayList<>(Arrays.asList(room)).indexOf(deviceArrayList.get(position).getRoom()));
+        holder.deviceName.setText(deviceArrayList.get(position).getDeviceName());
+
+
+
+        ArrayList<SpinnerItem> spinnerItemArrayListRoom = new ArrayList<>();
+        for (int i = 0; i < roomName.length; i++) {
+
+            SpinnerItem item = new SpinnerItem(roomIcon[i], roomName[i]);
+            spinnerItemArrayListRoom.add(item);
+        }
+        SpinnerAdapterCustom adapterRoom = new SpinnerAdapterCustom(context, R.layout.spinner_item, R.id.name, spinnerItemArrayListRoom);
+        holder.deviceRoom.setAdapter(adapterRoom);
+        holder.deviceRoom.setSelection(new ArrayList<>(Arrays.asList(roomName)).indexOf(deviceArrayList.get(position).getRoom()));
+
+        ArrayList<SpinnerItem> spinnerItemArrayListDevice = new ArrayList<>();
+        for (int i = 0; i < deviceTypeName.length; i++) {
+
+            SpinnerItem item = new SpinnerItem(deviceTypeIcon[i], deviceTypeName[i]);
+            spinnerItemArrayListDevice.add(item);
+        }
+        SpinnerAdapterCustom adapterDevice = new SpinnerAdapterCustom(context, R.layout.spinner_item, R.id.name, spinnerItemArrayListDevice);
+        holder.deviceType.setAdapter(adapterDevice);
+        holder.deviceType.setSelection(new ArrayList<>(Arrays.asList(deviceTypeName)).indexOf(deviceArrayList.get(position).getType()));
+
+
+        //holder.deviceTypeName.setSelection(new ArrayList<>(Arrays.asList(device)).indexOf(deviceArrayList.get(position).getType()));
+        //holder.deviceRoom.setSelection(new ArrayList<>(Arrays.asList(room)).indexOf(deviceArrayList.get(position).getRoom()));
 
 
     }
@@ -55,10 +86,10 @@ class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerViewAdapter
         return deviceArrayList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements AdapterView.OnItemSelectedListener {
 
-        @BindView(R.id.device_address)
-        TextView deviceAddress;
+        @BindView(R.id.device_name)
+        EditText deviceName;
         @BindView(R.id.device_type)
         AppCompatSpinner deviceType;
         @BindView(R.id.device_room)
@@ -70,13 +101,21 @@ class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerViewAdapter
 
             deviceType.setOnItemSelectedListener(this);
             deviceRoom.setOnItemSelectedListener(this);
+            deviceName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    switch (actionId) {
+                        case EditorInfo.IME_ACTION_DONE:
+
+
+                            break;
+                    }
+                    return false;
+                }
+            });
 
         }
 
-        @Override
-        public void onClick(View v) {
-
-        }
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -85,21 +124,22 @@ class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerViewAdapter
             switch (spinner.getId()) {
 
                 case R.id.device_room:
-                    if (parent.getItemAtPosition(position).toString().equals("Select Room")) {
+                    if (roomName[position].equals("Select")) {
 
                     } else {
-                        //Toasty.success(context, parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT, true).show();
+                        Toasty.success(context, roomName[position], Toast.LENGTH_SHORT, true).show();
                         Gson gson = new Gson();
                         String json = Storage.getDevice(context, deviceArrayList.get(getAdapterPosition()).getAddress());
-                        Device device;
-                        if(json.equals("")){
+                        Device device = gson.fromJson(json, Device.class);
+                        ;
+                       /* if(json.equals("")){
                             device = new Device(deviceArrayList.get(getAdapterPosition()).getAddress(),"","","");
                         }else{
                             device = gson.fromJson(json, Device.class);
-                        }
-                        device.setRoom(parent.getItemAtPosition(position).toString());
+                        }*/
+                        device.setRoom(roomName[position]);
                         json = gson.toJson(device);
-                        Storage.setDevice(context, deviceArrayList.get(getAdapterPosition()).getAddress(),json);
+                        Storage.setDevice(context, deviceArrayList.get(getAdapterPosition()).getAddress(), json);
                     }
                     break;
                 case R.id.device_type:
@@ -109,16 +149,17 @@ class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerViewAdapter
                         //Toasty.success(context, parent.getItemAtPosition(position).toString()+" "+deviceArrayList.get(getAdapterPosition()).getAddress(), Toast.LENGTH_SHORT, true).show();
                         Gson gson = new Gson();
                         String json = Storage.getDevice(context, deviceArrayList.get(getAdapterPosition()).getAddress());
-                        Device device;
-                        if(json.equals("")){
+                        Device device = gson.fromJson(json, Device.class);
+                        ;
+                      /*  if(json.equals("")){
                             device = new Device(deviceArrayList.get(getAdapterPosition()).getAddress(),"","","");
                         }else{
                             device = gson.fromJson(json, Device.class);
-                        }
+                        }*/
 
                         device.setType(parent.getItemAtPosition(position).toString());
                         json = gson.toJson(device);
-                        Storage.setDevice(context, deviceArrayList.get(getAdapterPosition()).getAddress(),json);
+                        Storage.setDevice(context, deviceArrayList.get(getAdapterPosition()).getAddress(), json);
                         //Toasty.success(context,Storage.getDevice(context,deviceArrayList.get(getAdapterPosition()).getAddress()), Toast.LENGTH_SHORT, true).show();
                     }
                     break;

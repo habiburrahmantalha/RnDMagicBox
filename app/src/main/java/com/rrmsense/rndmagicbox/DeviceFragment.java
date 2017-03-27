@@ -58,13 +58,13 @@ public class DeviceFragment extends Fragment {
             Gson gson = new Gson();
             //Toasty.success(getActivity(),Storage.getDevice(getActivity(),s), Toast.LENGTH_SHORT, true).show();
             String json = Storage.getDevice(getActivity(),s);
-            Device device;
-            if(json.equals("")){
+            Device device =  gson.fromJson(json, Device.class);;
+           /* if(json.equals("")){
                 device = new Device(s,"","","");
 
             }else{
                 device = gson.fromJson(json, Device.class);
-            }
+            }*/
 
             deviceArrayList.add(device);
         }

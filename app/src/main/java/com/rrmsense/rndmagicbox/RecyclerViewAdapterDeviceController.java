@@ -53,7 +53,7 @@ class RecyclerViewAdapterDeviceController extends RecyclerView.Adapter<RecyclerV
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.device_image)
         ImageView deviceImage;
-        @BindView(R.id.device_address)
+        @BindView(R.id.device_name)
         TextView deviceAddress;
         @BindView(R.id.device_type)
         TextView deviceType;

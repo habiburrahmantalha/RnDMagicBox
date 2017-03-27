@@ -3,7 +3,7 @@
 
 
     <string-array name="array_device_type">
-        <item>Select Device Type</item>
+        <item>Device</item>
         <item>Light</item>
         <item>Fan</item>
         <item>AC</item>
@@ -20,5 +20,8 @@
         <item>Room Five</item>
         <item>Room Six</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

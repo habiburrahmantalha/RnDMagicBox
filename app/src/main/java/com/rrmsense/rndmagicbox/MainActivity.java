@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -47,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
                 CURRENT_FRAGMENT = Constants.FRAGMENT_ROOM;
                 fragment = new RoomFragment();
                 break;
+            case Constants.FRAGMENT_DEVICE_CONTROLLER:
+                CURRENT_FRAGMENT = Constants.FRAGMENT_DEVICE_CONTROLLER;
+                fragment = new DeviceControllerFragment();
+                break;
 
         }
         fragment.setArguments(bundle);
@@ -68,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
         deviceNameArrayList = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
             deviceNameArrayList.add("Port_" + i);
+            Device device = new Device("Port_" + i,"Port_" + i,"","","",false,false);
+
+            String json = Storage.getDevice(this,deviceNameArrayList.get(i-1));
+            if(json.equals("")){
+                Gson gson = new Gson();
+                json = gson.toJson(device);
+                Storage.setDevice(this,deviceNameArrayList.get(i-1),json);
+            }
         }
 
     }
@@ -81,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.room:
                 openFragment(Constants.FRAGMENT_ROOM);
                 break;
+
         }
     }
 }
