@@ -8,23 +8,24 @@
     tools:context="com.rrmsense.rndmagicbox.activities.MainActivity"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/device"
-        android:text="Device List"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       />
-    <Button
-        android:id="@+id/room"
-        android:text="Room"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       />
+
     <FrameLayout
         android:id="@+id/fragment_holder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
 
     </FrameLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        android:isScrollContainer="false"
+        app:menu="@menu/navigation"/>
 
 </LinearLayout>

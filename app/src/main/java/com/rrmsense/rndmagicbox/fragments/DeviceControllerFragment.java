@@ -51,9 +51,10 @@ public class DeviceControllerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_device_controller, container, false);
         ButterKnife.bind(this, view);
-        roomName.setText(selectedRoom);
-        roomType.setText(selectedRoomType);
+
         createDeviceList();
+        roomName.setText(selectedRoom);
+        roomType.setText(deviceControllerArrayList.get(0).getRoomType());
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewDeviceController.setLayoutManager(layoutManager);
         adapter = new RecyclerViewAdapterDeviceController(getActivity(), deviceControllerArrayList);
@@ -74,6 +75,7 @@ public class DeviceControllerFragment extends Fragment {
                 deviceControllerArrayList.add(device);
             }
         }
+
     }
 
 

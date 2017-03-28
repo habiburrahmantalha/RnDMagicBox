@@ -61,31 +61,15 @@ public class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerView
         deviceArrayList.set(position,device);
 
         holder.address.setText(deviceArrayList.get(position).getAddress());
-        if(!deviceArrayList.get(position).getDeviceName().equals(Constants.DEFAULT_SPINNER_SELECT))
+        //if(!deviceArrayList.get(position).getDeviceName().equals(Constants.DEFAULT_SPINNER_SELECT))
         holder.deviceName.setText(deviceArrayList.get(position).getDeviceName());
-        if(!deviceArrayList.get(position).getRoomName().equals(Constants.DEFAULT_SPINNER_SELECT))
+        //if(!deviceArrayList.get(position).getRoomName().equals(Constants.DEFAULT_SPINNER_SELECT))
         holder.roomName.setText(deviceArrayList.get(position).getRoomName());
 
-       /* ArrayList<SpinnerItem> spinnerItemArrayListRoom = new ArrayList<>();
-        for (int i = 0; i < roomTypeList.length; i++) {
-
-            SpinnerItem item = new SpinnerItem(roomTypeIconList[i], roomTypeList[i]);
-            spinnerItemArrayListRoom.add(item);
-        }
-        SpinnerAdapterCustom adapterRoom = new SpinnerAdapterCustom(context, R.layout.spinner_item, R.id.name, spinnerItemArrayListRoom);
-        holder.roomType.setAdapter(adapterRoom);*/
-       if(!deviceArrayList.get(position).getRoomType().equals(Constants.DEFAULT_SPINNER_SELECT))
+       //if(!deviceArrayList.get(position).getRoomType().equals(Constants.DEFAULT_SPINNER_SELECT))
         holder.roomType.setSelection(new ArrayList<>(Arrays.asList(roomTypeList)).indexOf(deviceArrayList.get(position).getRoomType()));
 
-      /*  ArrayList<SpinnerItem> spinnerItemArrayListDevice = new ArrayList<>();
-        for (int i = 0; i < deviceTypeList.length; i++) {
-
-            SpinnerItem item = new SpinnerItem(deviceTypeIconList[i], deviceTypeList[i]);
-            spinnerItemArrayListDevice.add(item);
-        }
-        SpinnerAdapterCustom adapterDevice = new SpinnerAdapterCustom(context, R.layout.spinner_item, R.id.name, spinnerItemArrayListDevice);
-        holder.deviceType.setAdapter(adapterDevice);*/
-        if(!deviceArrayList.get(position).getDeviceType().equals(Constants.DEFAULT_SPINNER_SELECT))
+        //if(!deviceArrayList.get(position).getDeviceType().equals(Constants.DEFAULT_SPINNER_SELECT))
             holder.deviceType.setSelection(new ArrayList<>(Arrays.asList(deviceTypeList)).indexOf(deviceArrayList.get(position).getDeviceType()));
     }
 
