@@ -4,31 +4,45 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view_room"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_margin="5dp"
-    android:orientation="vertical"
-    card_view:cardBackgroundColor="#50BDB76B"
+    card_view:cardBackgroundColor="#30B4947B"
+    card_view:contentPadding="5dp"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:orientation="vertical"
+        >
 
         <ImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:padding="5dp"
+            android:id="@+id/room_image"
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@color/aqua"/>
 
         <TextView
             android:id="@+id/room_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:text="Room 1"
             />
+
+        <TextView
+            android:id="@+id/room_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bed Room"
+            />
+        <TextView
+            android:id="@+id/device_count"
+            android:text="1 Device Connected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

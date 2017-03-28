@@ -36,8 +36,11 @@ public class DeviceControllerFragment extends Fragment {
     String selectedRoom;
     @BindView(R.id.roomName)
     TextView roomName;
+    @BindView(R.id.roomType)
+    TextView roomType;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    String selectedRoomType;
 
     public DeviceControllerFragment() {
         // Required empty public constructor
@@ -48,6 +51,8 @@ public class DeviceControllerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_device_controller, container, false);
         ButterKnife.bind(this, view);
+        roomName.setText(selectedRoom);
+        roomType.setText(selectedRoomType);
         createDeviceList();
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewDeviceController.setLayoutManager(layoutManager);
@@ -65,7 +70,7 @@ public class DeviceControllerFragment extends Fragment {
             Gson gson = new Gson();
             String json = Storage.getDevice(getActivity(), s);
             Device device = gson.fromJson(json, Device.class);
-            if (device.getRoomType().equals(selectedRoom)) {
+            if (device.getRoomName().equals(selectedRoom)) {
                 deviceControllerArrayList.add(device);
             }
         }

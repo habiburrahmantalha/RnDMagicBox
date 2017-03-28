@@ -4,21 +4,32 @@
              android:layout_height="match_parent"
              tools:context="com.rrmsense.rndmagicbox.fragments.DeviceControllerFragment">
 
-    <TextView
-        android:id="@+id/roomType"
-        android:text="Type"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <TextView
-        android:id="@+id/roomName"
-        android:text="Name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_device_controller"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-    </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:id="@+id/roomType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type"
+            />
+
+        <TextView
+            android:layout_below="@id/roomType"
+            android:id="@+id/roomName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_below="@id/roomName"
+            android:id="@+id/recycler_view_device_controller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
 
 </FrameLayout>

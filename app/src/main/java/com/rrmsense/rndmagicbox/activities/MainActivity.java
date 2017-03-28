@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         deviceNameArrayList = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
             deviceNameArrayList.add("Port_" + i);
-            Device device = new Device("Port_" + i,"Port_" + i,"","","",false,false);
+            Device device = new Device("Port_" + i,"","","","",false,false);
 
             String json = Storage.getDevice(this,deviceNameArrayList.get(i-1));
             if(json.equals("")){

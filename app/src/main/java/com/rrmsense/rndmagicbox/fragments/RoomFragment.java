@@ -3,7 +3,7 @@ package com.rrmsense.rndmagicbox.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +51,7 @@ public class RoomFragment extends Fragment {
         createDeviceList();
 
 
-        layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerViewRoom.setLayoutManager(layoutManager);
         adapter = new RecyclerViewAdapterRoom(getActivity(), roomHashMap, roomArrayList);
         recyclerViewRoom.setAdapter(adapter);
@@ -66,13 +66,16 @@ public class RoomFragment extends Fragment {
             Gson gson = new Gson();
             String json = Storage.getDevice(getActivity(), s);
             Device device = gson.fromJson(json, Device.class);
-            if (device.getRoomType() != null && roomHashMap.containsKey(device.getRoomType())) {
-                roomHashMap.get(device.getRoomType()).add(device);
+            if(device.getRoomName() == null || device.getRoomName().equals("") )
+                continue;
+
+            if (roomHashMap.containsKey(device.getRoomName())) {
+                roomHashMap.get(device.getRoomName()).add(device);
 
             } else {
-                roomArrayList.add(device.getRoomType());
-                roomHashMap.put(device.getRoomType(), new ArrayList<Device>());
-                roomHashMap.get(device.getRoomType()).add(device);
+                roomArrayList.add(device.getRoomName());
+                roomHashMap.put(device.getRoomName(), new ArrayList<Device>());
+                roomHashMap.get(device.getRoomName()).add(device);
             }
 
             //roomArrayList.add(new Room("",device))

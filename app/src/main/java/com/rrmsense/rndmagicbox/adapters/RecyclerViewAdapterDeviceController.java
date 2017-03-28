@@ -12,9 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rrmsense.rndmagicbox.R;
+import com.rrmsense.rndmagicbox.others.Constants;
 import com.rrmsense.rndmagicbox.others.Device;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,12 +30,20 @@ public class RecyclerViewAdapterDeviceController extends RecyclerView.Adapter<Re
 
     ArrayList<Device> devices;
     Context context;
+    HashMap<String, Integer> deviceTypeImageHashMap;
+    String[] deviceTypeList = new String[]{Constants.DEFAULT_SPINNER_SELECT,"Light", "Fan", "AC", "TV", "Motor","Geyser"};
+    Integer[] deviceTypeIconList = {Constants.DEFAULT_SPINNER_SELECT_IMAGE,R.drawable.light_icon, R.drawable.fan_icon, R.drawable.ac_icon, R.drawable.tv_icon, R.drawable.water_pump,R.drawable.geyser_icon};
+
 
 
 
     public RecyclerViewAdapterDeviceController(Context context, ArrayList<Device> devices) {
         this.context = context;
         this.devices = devices;
+        deviceTypeImageHashMap = new HashMap<>();
+        for (int i = 0; i < 7; i++) {
+            deviceTypeImageHashMap.put(deviceTypeList[i], deviceTypeIconList[i]);
+        }
     }
 
     @Override
@@ -47,7 +57,7 @@ public class RecyclerViewAdapterDeviceController extends RecyclerView.Adapter<Re
         holder.address.setText(devices.get(position).getAddress());
         holder.deviceName.setText(devices.get(position).getDeviceName());
         holder.deviceType.setText(devices.get(position).getDeviceType());
-        holder.deviceImage.setImageResource(R.drawable.ic_devices_other_black_24dp);
+        holder.deviceImage.setImageResource(deviceTypeImageHashMap.get(devices.get(position).getDeviceType()));
 
     }
 
