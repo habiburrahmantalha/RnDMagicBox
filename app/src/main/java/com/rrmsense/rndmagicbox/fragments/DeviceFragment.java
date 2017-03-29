@@ -46,32 +46,24 @@ public class DeviceFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_device, container, false);
         ButterKnife.bind(this, view);
-        createDeviceList();
 
-        deviceNameArrayList = ((MainActivity)getActivity()).deviceNameArrayList;
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewDevice.setLayoutManager(layoutManager);
+        deviceArrayList = new ArrayList<>();
         adapter = new RecyclerViewAdapterDevice(getActivity(), deviceArrayList);
         recyclerViewDevice.setAdapter(adapter);
+        createDeviceList();
         return view;
     }
 
     private void createDeviceList() {
         deviceNameArrayList = ((MainActivity)getActivity()).deviceNameArrayList;
-        deviceArrayList = new ArrayList<>();
         for(String s: deviceNameArrayList){
             Gson gson = new Gson();
-            //Toasty.success(getActivity(),Storage.getDevice(getActivity(),s), Toast.LENGTH_SHORT, true).show();
             String json = Storage.getDevice(getActivity(),s);
             Device device =  gson.fromJson(json, Device.class);;
-           /* if(json.equals("")){
-                device = new Device(s,"","","");
-
-            }else{
-                device = gson.fromJson(json, Device.class);
-            }*/
-
             deviceArrayList.add(device);
+            adapter.notifyItemInserted(deviceArrayList.size()-1);
         }
     }
 
