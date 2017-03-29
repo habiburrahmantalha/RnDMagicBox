@@ -152,10 +152,10 @@ public class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerView
                     } else {
                         //Toasty.success(context, roomName[position], Toast.LENGTH_SHORT, true).show();
                         updateRoomType(deviceArrayList.get(getAdapterPosition()).getAddress(),roomTypeList[position]);
-                        if(deviceArrayList.get(getAdapterPosition()).getRoomName().equals("")) {
+                        //if(deviceArrayList.get(getAdapterPosition()).getRoomName().equals("")) {
                             roomName.setText(roomTypeList[position]);
                             roomName.onEditorAction(EditorInfo.IME_ACTION_DONE);
-                        }
+                        //}
                     }
                     break;
                 case R.id.device_type:
@@ -164,10 +164,10 @@ public class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerView
                     } else {
                         //Toasty.success(context, parent.getItemAtPosition(position).toString()+" "+deviceArrayList.get(getAdapterPosition()).getAddress(), Toast.LENGTH_SHORT, true).show();
                         updateDeviceType(deviceArrayList.get(getAdapterPosition()).getAddress(),deviceTypeList[position]);
-                        if(deviceArrayList.get(getAdapterPosition()).getDeviceName().equals("")){
+                        //if(deviceArrayList.get(getAdapterPosition()).getDeviceName().equals("")){
                             deviceName.setText(deviceTypeList[position]);
                             deviceName.onEditorAction(EditorInfo.IME_ACTION_DONE);
-                        }
+                        //}
                     }
                     break;
             }

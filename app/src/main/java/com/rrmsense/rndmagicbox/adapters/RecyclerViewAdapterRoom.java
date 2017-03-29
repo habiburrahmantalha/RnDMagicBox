@@ -59,6 +59,8 @@ public class RecyclerViewAdapterRoom extends RecyclerView.Adapter<RecyclerViewAd
             return;
 
         holder.roomName.setText("Room Name: "+roomArrayList.get(position));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(getScreenWidth()/2-50, getScreenWidth()/2 -50);
+        holder.roomImage.setLayoutParams(layoutParams);
         holder.roomImage.setImageResource(roomImageHashMap.get(roomHashMap.get(roomArrayList.get(position)).get(0).getRoomType()));
         holder.roomType.setText("Room Type: "+roomHashMap.get(roomArrayList.get(position)).get(0).getRoomType());
         holder.deviceCount.setText(roomHashMap.get(roomArrayList.get(position)).size()+ " Device Connected");
@@ -83,8 +85,7 @@ public class RecyclerViewAdapterRoom extends RecyclerView.Adapter<RecyclerViewAd
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(getScreenWidth()/2, getScreenWidth()/2);
-            roomImage.setLayoutParams(layoutParams);
+
             cardViewRoom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
