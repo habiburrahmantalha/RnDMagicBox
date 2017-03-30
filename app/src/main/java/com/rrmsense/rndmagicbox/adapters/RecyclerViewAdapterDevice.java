@@ -151,7 +151,8 @@ public class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerView
 
                     } else {
                         //Toasty.success(context, roomName[position], Toast.LENGTH_SHORT, true).show();
-                        updateRoomType(deviceArrayList.get(getAdapterPosition()).getAddress(),roomTypeList[position]);
+                        if(!updateRoomType(deviceArrayList.get(getAdapterPosition()).getAddress(),roomTypeList[position]))
+                            break;
                         //if(deviceArrayList.get(getAdapterPosition()).getRoomName().equals("")) {
                             roomName.setText(roomTypeList[position]);
                             roomName.onEditorAction(EditorInfo.IME_ACTION_DONE);
@@ -163,7 +164,8 @@ public class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerView
 
                     } else {
                         //Toasty.success(context, parent.getItemAtPosition(position).toString()+" "+deviceArrayList.get(getAdapterPosition()).getAddress(), Toast.LENGTH_SHORT, true).show();
-                        updateDeviceType(deviceArrayList.get(getAdapterPosition()).getAddress(),deviceTypeList[position]);
+                        if(!updateDeviceType(deviceArrayList.get(getAdapterPosition()).getAddress(),deviceTypeList[position]))
+                            break;
                         //if(deviceArrayList.get(getAdapterPosition()).getDeviceName().equals("")){
                             deviceName.setText(deviceTypeList[position]);
                             deviceName.onEditorAction(EditorInfo.IME_ACTION_DONE);
@@ -209,13 +211,16 @@ public class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerView
         Storage.setDevice(context,key , json);
 
     }
-    void updateRoomType(String key, String value){
+    boolean updateRoomType(String key, String value){
         Gson gson = new Gson();
         String json = Storage.getDevice(context, key);
         Device device = gson.fromJson(json, Device.class);
+        if(value==device.getDeviceType())
+            return false;
         device.setRoomType(value);
         json = gson.toJson(device);
         Storage.setDevice(context, key, json);
+        return true;
 
     }
     void updateDeviceName(String key, String value){
@@ -227,13 +232,16 @@ public class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerView
         Storage.setDevice(context,key , json);
 
     }
-    void updateDeviceType(String key, String value){
+    boolean updateDeviceType(String key, String value){
         Gson gson = new Gson();
         String json = Storage.getDevice(context, key);
         Device device = gson.fromJson(json, Device.class);
+        if(value==device.getDeviceType())
+            return false;
         device.setDeviceType(value);
         json = gson.toJson(device);
         Storage.setDevice(context, key, json);
+        return true;
 
     }
 }
