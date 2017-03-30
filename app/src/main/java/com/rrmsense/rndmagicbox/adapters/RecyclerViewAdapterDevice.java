@@ -154,6 +154,7 @@ public class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerView
                         if(!updateRoomType(deviceArrayList.get(getAdapterPosition()).getAddress(),roomTypeList[position]))
                             break;
                         //if(deviceArrayList.get(getAdapterPosition()).getRoomName().equals("")) {
+
                             roomName.setText(roomTypeList[position]);
                             roomName.onEditorAction(EditorInfo.IME_ACTION_DONE);
                         //}
@@ -215,7 +216,8 @@ public class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerView
         Gson gson = new Gson();
         String json = Storage.getDevice(context, key);
         Device device = gson.fromJson(json, Device.class);
-        if(value==device.getDeviceType())
+        //Toasty.success(context, value+" "+device.getRoomType(), Toast.LENGTH_SHORT, true).show();
+        if(value.equals(device.getRoomType()))
             return false;
         device.setRoomType(value);
         json = gson.toJson(device);
@@ -236,7 +238,7 @@ public class RecyclerViewAdapterDevice extends RecyclerView.Adapter<RecyclerView
         Gson gson = new Gson();
         String json = Storage.getDevice(context, key);
         Device device = gson.fromJson(json, Device.class);
-        if(value==device.getDeviceType())
+        if(value.equals(device.getDeviceType()))
             return false;
         device.setDeviceType(value);
         json = gson.toJson(device);
